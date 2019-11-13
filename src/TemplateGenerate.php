@@ -97,7 +97,7 @@ class TemplateGenerate
                 $group = $params['template']['group'];
             }
 
-            $this->doExecute($params['template']['input'], $params['template']['output'], $params['template']['input'], $user, $group);
+            $this->doExecute($params['project']['path'] . $params['template']['input'], $params['project']['path'] . $params['template']['output'], $params['project']['path'] . $params['template']['input'], $user, $group);
         } else {
             ConsoleLog::doPrintMessage("red", "black", "Template is unactivated, Please check setting options.(template->on_off)", 2);
         }
@@ -110,10 +110,10 @@ class TemplateGenerate
      */
     public function doClean($params)
     {
-        $this->doValidationInput($params['template']['input']);
-        $this->doValidationOutput($params['template']['output']);
+        $this->doValidationInput($params['project']['path'] . $params['template']['input']);
+        $this->doValidationOutput($params['project']['path'] . $params['template']['output']);
 
-        $this->doTemplateClean($params['template']['output'], $params['template']['input']);
+        $this->doTemplateClean($params['project']['path'] . $params['template']['output'], $params['project']['path'] . $params['template']['input']);
     }
 
     /**
@@ -494,7 +494,7 @@ class TemplateGenerate
 
         exec("chmod " . $this->permission . " " . $cplPath);
         exec("chown -R " . $this->fileUser . "." . $this->fileGroup . " " . $cplPath);
-        return "\e[32m OK";
+        return "\e[32mOK";
     }
 
     /**
