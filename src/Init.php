@@ -240,17 +240,17 @@ class Init extends PackageArgvParser
     {
         ConsoleLog::doPrintMessage("black", "yellow", "First commands:", true);
         echo "\e[32m  template\e[0m\t\t Convert html to php" . PHP_EOL;
-        echo "\e[32m    ├─ init\e[0m\t\t Use composer update command " . PHP_EOL;
-        echo "\e[32m    ├─ update\e[0m\t\t Use composer update command " . PHP_EOL;
-        echo "\e[32m    └─ build\e[0m\t\t Use composer update command " . PHP_EOL . PHP_EOL;
+        echo "\e[32m    ├─ init\e[0m\t\t Use template init command" . PHP_EOL;
+        echo "\e[32m    ├─ update\e[0m\t\t Use template update command " . PHP_EOL;
+        echo "\e[32m    └─ build\e[0m\t\t Use template build command " . PHP_EOL . PHP_EOL;
         echo "\e[32m  package\e[0m\t\t Build own Package library and Install a package from repo" . PHP_EOL;
-        echo "\e[32m    ├─ clean\e[0m\t\t Use composer update command " . PHP_EOL;
-        echo "\e[32m    ├─ create\e[0m\t\t Use composer update command " . PHP_EOL;
-        echo "\e[32m    ├─ install\e[0m\t\t Use composer update command " . PHP_EOL;
-        echo "\e[32m    ├─ delete\e[0m\t\t Use composer update command " . PHP_EOL;
-        echo "\e[32m    └─ build\e[0m\t\t Use composer update command " . PHP_EOL . PHP_EOL;
-        echo "\e[32m  database\e[0m\t\t Use propel command" . PHP_EOL;
-        echo "\e[32m    └─update\e[0m\t\t Use composer update command " . PHP_EOL . PHP_EOL;
+        echo "\e[32m    ├─ clean\e[0m\t\t Use package clean command " . PHP_EOL;
+        echo "\e[32m    ├─ create\e[0m\t\t Use package create command " . PHP_EOL;
+        echo "\e[32m    ├─ install\e[0m\t\t Use package install command " . PHP_EOL;
+        echo "\e[32m    ├─ delete\e[0m\t\t Use package delete command " . PHP_EOL;
+        echo "\e[32m    └─ build\e[0m\t\t Use package build command " . PHP_EOL . PHP_EOL;
+        echo "\e[32m  database\e[0m\t\t Use database command" . PHP_EOL;
+        echo "\e[32m    └─update\e[0m\t\t Use database update command " . PHP_EOL . PHP_EOL;
         echo "\e[32m  composer\e[0m\t\t Use composer update command " . PHP_EOL;
         echo "\e[32m    └─update\e[0m\t\t Use composer update command " . PHP_EOL . PHP_EOL;
         echo "\e[32m  version\e[0m\t\t Show version info " . PHP_EOL . PHP_EOL;
