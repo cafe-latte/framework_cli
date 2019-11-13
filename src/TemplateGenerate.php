@@ -85,18 +85,24 @@ class TemplateGenerate
      */
     public function doCompile($params)
     {
-        $this->doValidationInput($params['template']['input']);
-        $this->doValidationOutput($params['template']['output']);
+        if ($params['template']['on_off'] == 'on') {
+            $this->doValidationInput($params['project']['path'] . $params['template']['input']);
+            $this->doValidationOutput($params['project']['path'] . $params['template']['output']);
 
-        if ($params['template']['user']) {
-            $user = $params['template']['user'];
+            if ($params['template']['user']) {
+                $user = $params['template']['user'];
+            }
+
+            if ($params['template']['group']) {
+                $group = $params['template']['group'];
+            }
+
+            $this->doExecute($params['template']['input'], $params['template']['output'], $params['template']['input'], $user, $group);
+        } else {
+            ConsoleLog::doPrintMessage("red", "black", "Template is unactivated, Please check setting options.(template->on_off)", 2);
         }
 
-        if ($params['template']['group']) {
-            $group = $params['template']['group'];
-        }
 
-        $this->doExecute($params['template']['input'], $params['template']['output'], $params['template']['input'], $user, $group);
     }
 
     /**

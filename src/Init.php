@@ -5,8 +5,6 @@ namespace Cafelatte\PackageManager;
 include "./ConsoleLog.php";
 include "./Console.php";
 include "./CafeLatte.php";
-include "./PackageInstall.php";
-include "./PackageComposer.php";
 include "./PackageSetup.php";
 include "./PackageArgvParser.php";
 include "./PackageZip.php";
@@ -88,28 +86,7 @@ class Init extends PackageArgvParser
                     echo PHP_EOL.PHP_EOL;
                     break;
 
-                case "package":
-                    switch ($this->params[1]) {
-                        case "install":
-                            $inst = new PackageInstall();
-                            $inst->doDownloadAndInstall($this->params[2]);
-                            echo PHP_EOL;
-                            break;
-                        case "delete":
-                            $inst = new PackageSetup();
-                            $inst->doRemove($this->params[2]);
-                            echo PHP_EOL;
-                            break;
-                        case "build":
-                            $inst = new PackageBuilder();
-                            $inst->doBuild($this->params[2]);
-                            echo PHP_EOL;
-                            break;
-                        default:
-                            ConsoleLog::errorMessage("Do not support this command(`" . $this->params[1] . "`)");
-                            break;
-                    }
-                    break;
+
                 case "template":
                     $template = new TemplateGenerate();
                     switch ($this->params[1]) {
@@ -136,18 +113,7 @@ class Init extends PackageArgvParser
                             break;
                     }
                     break;
-                case "composer":
-                    switch ($this->params[1]) {
-                        case "update":
-                            $inst = new PackageComposer();
-                            $inst->doUpdate();
-                            echo PHP_EOL;
-                            break;
-                        default:
-                            ConsoleLog::errorMessage("Do not support this command(`" . $this->params[1] . "`)");
-                            break;
-                    }
-                    break;
+
                 case "database":
                     switch ($this->params[1]) {
                         case "update":
@@ -243,16 +209,8 @@ class Init extends PackageArgvParser
         echo "\e[32m    ├─ init\e[0m\t\t Use template init command" . PHP_EOL;
         echo "\e[32m    ├─ update\e[0m\t\t Use template update command " . PHP_EOL;
         echo "\e[32m    └─ build\e[0m\t\t Use template build command " . PHP_EOL . PHP_EOL;
-        echo "\e[32m  package\e[0m\t\t Build own Package library and Install a package from repo" . PHP_EOL;
-        echo "\e[32m    ├─ clean\e[0m\t\t Use package clean command " . PHP_EOL;
-        echo "\e[32m    ├─ create\e[0m\t\t Use package create command " . PHP_EOL;
-        echo "\e[32m    ├─ install\e[0m\t\t Use package install command " . PHP_EOL;
-        echo "\e[32m    ├─ delete\e[0m\t\t Use package delete command " . PHP_EOL;
-        echo "\e[32m    └─ build\e[0m\t\t Use package build command " . PHP_EOL . PHP_EOL;
         echo "\e[32m  database\e[0m\t\t Use database command" . PHP_EOL;
         echo "\e[32m    └─update\e[0m\t\t Use database update command " . PHP_EOL . PHP_EOL;
-        echo "\e[32m  composer\e[0m\t\t Use composer update command " . PHP_EOL;
-        echo "\e[32m    └─update\e[0m\t\t Use composer update command " . PHP_EOL . PHP_EOL;
         echo "\e[32m  version\e[0m\t\t Show version info " . PHP_EOL . PHP_EOL;
     }
 
