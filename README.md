@@ -6,4 +6,3 @@ php build.php
 
 ls -al afelatte.phar
 ```
-
