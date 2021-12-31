@@ -26,6 +26,7 @@ class PackageSetup
             "./src/PhpFramework/Config",
             "./src/PhpFramework/Controllers",
             "./src/PhpFramework/Controllers/Admin",
+            "./src/PhpFramework/Controllers/Api",
             "./src/PhpFramework/Controllers/Www",
             "./src/PhpFramework/Exceptions",
             "./src/PhpFramework/Helpers",
@@ -37,8 +38,12 @@ class PackageSetup
             "./src/Resources",
             "./src/Resources/Database",
             "./web",
-            "./web/Admin",
-            "./web/Www",
+            "./web/Admin/Html",
+            "./web/Admin/public_html",
+            "./web/Www/Html",
+            "./web/Www/public_html",
+            "./web/Api/Html",
+            "./web/Api/public_html",
         );
     }
 

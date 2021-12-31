@@ -15,7 +15,7 @@ class Console
      * @param $command
      * @return string
      */
-    public static function doCommand($command)
+    public static function doCommand($command): string
     {
         echo $command;
         return rtrim(fgets(STDIN));
@@ -26,7 +26,7 @@ class Console
      * @param $command
      * @return string
      */
-    public static function doCommandExec($command)
+    public static function doCommandExec($command): string
     {
         return shell_exec($command);
     }

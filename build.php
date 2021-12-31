@@ -5,7 +5,10 @@ $buildRoot = "./build";
 $extension = ['php'];
 $dir = __DIR__;
 
+
+
 $file = 'cafelatte.phar';
+
 $phar = new Phar(__DIR__ . '/' . $file, 0, $file);
 $phar->startBuffering();
 
@@ -18,7 +21,7 @@ $phar->setStub("#!/usr/bin/env php" . PHP_EOL . "
     /*
      * This file is part of CafeLatte Package Manager.
      *
-     * (c) Thorpe Lee <koangbok@gmail.com>, <http://www.cafe-latte.co.kr>
+     * (c) Thorpe Lee <koangbok@gmail.com>, <https://www.cafe-latte.co.kr>
      * CafeLatte(CL) Package Manager is released under the `MIT` license.
      * License : MIT
      */

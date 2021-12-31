@@ -10,7 +10,6 @@ class PackageZip
     PRIVATE $uploadPath;
     PRIVATE $inputFile;
     PRIVATE $outputFile;
-    PRIVATE $prefixFolder;
 
     CONST ZIP_BIN = "/usr/bin/zip";
     CONST UNZIP_BIN = "/usr/bin/unzip";
@@ -55,7 +54,7 @@ class PackageZip
      * 
      * @return string
      */
-    public function doZipExe()
+    public function doZipExe(): string
     {
         $command = self::ZIP_BIN . " -r " . $this->uploadPath . $this->outputFile . " " . $this->inputFile;
         return Console::doCommandExec($command);
@@ -66,7 +65,7 @@ class PackageZip
      *
      * @return string
      */
-    public function doUnZipExe()
+    public function doUnZipExe(): string
     {
         $command = self::UNZIP_BIN . " " . $this->inputFile . " -d " . $this->outputFile;
         return Console::doCommandExec($command);

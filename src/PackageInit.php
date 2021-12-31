@@ -10,7 +10,7 @@ class PackageInit
     {
     }
 
-    public function getComposerFile($jsonData)
+    public function getComposerFile($jsonData): string
     {
         $body = <<<EOF
 {
@@ -34,7 +34,7 @@ EOF;
         return $body;
     }
 
-    public function getHtaccessFile()
+    public function getHtaccessFile(): string
     {
         $body = <<<EOF
 Options +FollowSymLinks
@@ -52,7 +52,7 @@ EOF;
     }
 
 
-    public function getIndexFile($routeName, $jsonData)
+    public function getIndexFile($routeName, $jsonData): string
     {
         $routeName = $routeName. "Route";
         $body = <<<EOF
@@ -72,7 +72,7 @@ EOF;
         return $body;
     }
 
-    public function getRouteSampleCode($controllerName, $routeName)
+    public function getRouteSampleCode($controllerName, $routeName): string
     {
         $routeName = $routeName. "Route";
         $controllerName = $controllerName. "Controller";
@@ -112,7 +112,7 @@ EOF;
     }
 
 
-    public function getControllerSampleCode($controllerName)
+    public function getControllerSampleCode($controllerName): string
     {
         $controllerName = $controllerName. "Controller";
         $body = <<<EOF
@@ -158,7 +158,7 @@ EOF;
     }
 
 
-    public function getPropelFile($jsonData)
+    public function getPropelFile($jsonData): string
     {
         $dbHost = $jsonData['database']['db_host']['0'];
         $dbName = $jsonData['database']['db_name'];

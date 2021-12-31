@@ -107,7 +107,6 @@ class Init extends PackageArgvParser
                             $template->doDelete($this->params[2]['template']['output']);
                             echo PHP_EOL;
                             break;
-
                         default:
                             ConsoleLog::errorMessage("Do not support this command(`" . $this->params[1] . "`)");
                             break;
@@ -144,11 +143,11 @@ class Init extends PackageArgvParser
      */
     public function getLogo()
     {
-        ConsoleLog::doPrintMessage("black", "cyan", "@@@@@   @   @@@@@ @@@@@ @       @   @@@@@ @@@@@ @@@@@", 1);
-        ConsoleLog::doPrintMessage("black", "cyan", "@      @ @  @     @     @      @ @    @     @   @    ", 1);
-        ConsoleLog::doPrintMessage("black", "cyan", "@     @@@@@ @@@@  @@@@@ @     @@@@@   @     @   @@@@@", 1);
-        ConsoleLog::doPrintMessage("black", "cyan", "@     @   @ @     @     @     @   @   @     @   @    ", 1);
-        ConsoleLog::doPrintMessage("black", "cyan", "@@@@@ @   @ @     @@@@@ @@@@@ @   @   @     @   @@@@@", 2);
+        ConsoleLog::doPrintMessage("", "cyan", "@@@@@   @   @@@@@ @@@@@ @       @   @@@@@ @@@@@ @@@@@", 1);
+        ConsoleLog::doPrintMessage("", "cyan", "@      @ @  @     @     @      @ @    @     @   @    ", 1);
+        ConsoleLog::doPrintMessage("", "cyan", "@     @@@@@ @@@@  @@@@@ @     @@@@@   @     @   @@@@@", 1);
+        ConsoleLog::doPrintMessage("", "cyan", "@     @   @ @     @     @     @   @   @     @   @    ", 1);
+        ConsoleLog::doPrintMessage("", "cyan", "@@@@@ @   @ @     @@@@@ @@@@@ @   @   @     @   @@@@@", 2);
     }
 
 
@@ -164,13 +163,13 @@ class Init extends PackageArgvParser
 
         $this->getLogo();
 
-        ConsoleLog::doPrintMessage("black", "cyan", "Name    : CafeLatte Binary", 1);
-        ConsoleLog::doPrintMessage("black", "cyan", "Version", 0);
-        ConsoleLog::doPrintMessage("black", "cyan", " : v1.1.0", 1);
-        ConsoleLog::doPrintMessage("black", "cyan", "Url    ", 0);
-        ConsoleLog::doPrintMessage("black", "cyan", " : http://www.cafe-latte.co.kr", 1);
-        ConsoleLog::doPrintMessage("black", "cyan", "Author ", 0);
-        ConsoleLog::doPrintMessage("black", "cyan", " : Thorpe Lee", 2);
+        ConsoleLog::doPrintMessage("", "cyan", "Name    : CafeLatte Binary", 1);
+        ConsoleLog::doPrintMessage("", "cyan", "Version", 0);
+        ConsoleLog::doPrintMessage("", "cyan", " : v1.1.3", 1);
+        ConsoleLog::doPrintMessage("", "cyan", "Url    ", 0);
+        ConsoleLog::doPrintMessage("", "cyan", " : https://www.cafe-latte.co.kr", 1);
+        ConsoleLog::doPrintMessage("", "cyan", "Author ", 0);
+        ConsoleLog::doPrintMessage("", "cyan", " : Thorpe Lee", 2);
     }
 
     /**

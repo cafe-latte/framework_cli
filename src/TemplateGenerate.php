@@ -10,11 +10,8 @@ class TemplateGenerate
     private $rsvWords;
     private $keyWords;
     private $compileDir;
-    private $templateDir;
     private $fileUser;
     private $fileGroup;
-    private $funcList;
-    private $objList;
     private $split;
     private $index;
     private $expError;
@@ -29,13 +26,7 @@ class TemplateGenerate
     private $nlCnt;
     private $statement;
     private $nl;
-    private $markPhp;
-    private $_size_prefix;
     private $nlDel;
-    private $funcPlugins;
-    private $autoGlobals;
-    private $objPlugins;
-    private $expObject;
     private $compileExt;
     private $autoConstant;
     private $constants;
