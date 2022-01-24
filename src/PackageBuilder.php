@@ -91,9 +91,7 @@ class PackageBuilder
             $url = Repository::URL_PRODUCT . "/Repo/Upload";
         }
 
-        $result = Repository::doCurl($url, "POST", $params);
-
-        return $result;
+        return Repository::doCurl($url, "POST", $params);
     }
 
     /**

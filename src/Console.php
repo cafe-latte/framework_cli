@@ -21,12 +21,11 @@ class Console
         return rtrim(fgets(STDIN));
     }
 
-
     /**
      * @param $command
-     * @return string
+     * @return false|string|null
      */
-    public static function doCommandExec($command): string
+    public static function doCommandExec($command)
     {
         return shell_exec($command);
     }

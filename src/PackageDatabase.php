@@ -11,26 +11,43 @@ class PackageDatabase
 
     }
 
-
     /**
-     * @param $jsonData
+     * @param $dbHost
+     * @param $dbName
+     * @param $dbUser
+     * @param $dbPass
      */
-    public function doUpdate($jsonData)
+    public function doUpdate($dbHost, $dbName, $dbUser, $dbPass)
     {
-        $dbHost = $jsonData['database']['db_host'];
-        $dbName = $jsonData['database']['db_name'];
-        $dbUser = $jsonData['database']['db_user'];
-        $dbPass = $jsonData['database']['db_pass'];
-
         $this->doValidationConnect($dbHost, $dbName, $dbUser, $dbPass);
         $this->doValidationPropelInstall();
 
-        Console::doCommandExec("chmod 777 ./vendor/propel/propel/bin/propel");
+        $dbStr = mb_convert_case($dbName, MB_CASE_TITLE, "UTF-8");
+        $dbPascalName = str_replace(array('-', '_', ' ', '!', '#', '$', '%', '^', '&', '*', '[', ']', '~', '{', '}', ':'), "", $dbStr);
+
+
+        ConsoleLog::doPrintMessage("black", "white", "step (1/6) \t: propel permission changed.", 1);
+        Console::doCommandExec('chmod 777 ./vendor/propel/propel/bin/propel');
+        sleep(1);
+
+        ConsoleLog::doPrintMessage("black", "white", "step (2/6) \t: generate reverse database.", 1);
         Console::doCommandExec("./vendor/propel/propel/bin/propel reverse --database-name {$dbName} \"mysql:host={$dbHost};dbname={$dbName};user={$dbUser};password={$dbPass}\"");
-        Console::doCommandExec("find ./generated-reversed-database/schema.xml -name \"*.*\" -exec sed -i \"s/defaultPhpNamingMethod=\"underscore\"/defaultPhpNamingMethod=\"underscore\" namespace=\"PhpFramework\\\\\Model\"/g\" {} \;");
+        sleep(1);
+
+        ConsoleLog::doPrintMessage("black", "white", "step (3/6) \t: change namespace.", 1);
+        Console::doCommandExec('find ./generated-reversed-database/schema.xml -name "*.*" -exec sed -i "s/defaultPhpNamingMethod=\"underscore\"/defaultPhpNamingMethod=\"underscore\" namespace=\"PhpFramework\\\\\Model\\\\\\' .$dbPascalName . '\"/g" {} \;');
+        sleep(1);
+
+        ConsoleLog::doPrintMessage("black", "white", "step (4/6) \t: model build", 1);
         Console::doCommandExec("./vendor/propel/propel/bin/propel model:build --schema-dir ./generated-reversed-database --output-dir ./src/");
+        sleep(1);
+
+        ConsoleLog::doPrintMessage("black", "white", "step (5/6) \t: create config.php.", 1);
+        Console::doCommandExec("./vendor/propel/propel/bin/propel config:convert --output-dir ./src/Resources/Database");
+        sleep(1);
+
+        ConsoleLog::doPrintMessage("black", "white", "step (6/6) \t: delete reversed database", 2);
         Console::doCommandExec("rm -rf ./generated-reversed-database");
-        Console::doCommandExec("./vendor/propel/propel/bin/propel config:convert --output-dir ./src/Resources/Database/");
     }
 
     /**

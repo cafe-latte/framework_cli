@@ -119,7 +119,7 @@ class ConsoleLog
     }
 
     public static function noticeMessage($message) {
-        ConsoleLog::doPrintMessage("green", "white", $message, 2);
+        ConsoleLog::doPrintMessage("blue", "white", $message, 2);
     }
 
 }

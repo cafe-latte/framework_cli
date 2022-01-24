@@ -20,8 +20,8 @@ class Init extends PackageArgvParser
 
     public $params;
 
+
     /**
-     * Init constructor.
      * @param $argv
      */
     public function __construct($argv)
@@ -49,13 +49,13 @@ class Init extends PackageArgvParser
                     $inst->doPreCheckFolder($this->params[2]);
                     $inst->doPreCheckDatabase($this->params[2]);
                     $result = $inst->doPreCheckResult();
-                    ConsoleLog::noticeMessage("Checking result........................");
+                    ConsoleLog::noticeMessage("Checking result..............................................");
                     if ($result == true) {
                         ConsoleLog::doPrintFile("Final result ", "OK", "green", "Result...");
                     } else {
                         ConsoleLog::doPrintFile("Final result ", "ERROR", "red", "Result...");
                     }
-                    echo PHP_EOL.PHP_EOL;
+                    echo PHP_EOL . PHP_EOL;
                     break;
                 case "setup":
                     $inst = new CafeLatte();
@@ -65,8 +65,8 @@ class Init extends PackageArgvParser
                     $inst->doPreCheckDatabase($this->params[2]);
 
                     $result = $inst->doPreCheckResult();
-                    ConsoleLog::noticeMessage("Checking result........................");
-                    echo PHP_EOL.PHP_EOL;
+                    ConsoleLog::noticeMessage("Checking result..............................................");
+                    echo PHP_EOL . PHP_EOL;
                     if ($result == true) {
                         ConsoleLog::doPrintFile("Final result ", "OK", "green", "Result...", 3);
 
@@ -78,12 +78,12 @@ class Init extends PackageArgvParser
                         ConsoleLog::errorMessage("---CAN NOT MOVE A NEXT STEP MORE, PLEASE SOLVE SOME ERRORS---");
                     }
 
-                    echo PHP_EOL.PHP_EOL;
+                    echo PHP_EOL . PHP_EOL;
                     break;
                 case "remove":
                     $inst = new CafeLatte();
                     $inst->doRemove($this->params[2]);
-                    echo PHP_EOL.PHP_EOL;
+                    echo PHP_EOL . PHP_EOL;
                     break;
 
 
@@ -116,18 +116,44 @@ class Init extends PackageArgvParser
                 case "database":
                     switch ($this->params[1]) {
                         case "update":
-                            $inst = new PackageDatabase();
-                            $inst->doUpdate($this->params[2]);
-                            echo PHP_EOL;
+                            if (file_exists("./propel.php") === true) {
+                                $propelInfo = include "./propel.php";
+                                $propelInfoConnection = array_keys($propelInfo['propel']['database']['connections']);
+
+                                if (!$propelInfoConnection[0]) {
+                                    ConsoleLog::errorMessage("There is No `connection information` in propel.php, Please look at `propel.php` source inside.");
+                                    exit;
+                                }
+
+                                ConsoleLog::doPrintMessage("yellow", "black", "Database Model Update/Created Started. \t\t", 2);
+
+                                foreach ($propelInfoConnection as $value) {
+                                    $databaseInfo = $propelInfo['propel']['database']['connections'][$value];
+                                    $dbHostInfo = explode(";", $databaseInfo['dsn']);
+
+                                    $dbHost = str_replace("mysql:host=", "", $dbHostInfo[0]);
+                                    $dbName = str_replace("dbname=", "", $dbHostInfo[1]);
+                                    $dbUser = str_replace("dbname=", "", $databaseInfo['user']);
+                                    $dbPass = str_replace("dbname=", "", $databaseInfo['password']);
+
+                                    $inst = new PackageDatabase();
+                                    $inst->doUpdate($dbHost, $dbName, $dbUser, $dbPass);
+                                }
+                                ConsoleLog::doPrintMessage("yellow", "black", "Init Database Successfully. \t\t", 2);
+                            } else {
+                                ConsoleLog::errorMessage("There is No `propel.php`, If you want to use Database, Please create the `propel.php`.");
+                                exit;
+                            }
+
                             break;
                         default:
-                            ConsoleLog::errorMessage("Do not support this command(`" . $this->params[1] . "`)");
+                            ConsoleLog::errorMessage("Do not support this command(`" . $this->params[1] . "`).");
                             break;
                     }
                     break;
 
                 default:
-                    ConsoleLog::errorMessage("Do not support this command(`" . $this->params[0] . "`)");
+                    ConsoleLog::errorMessage("Do not support this command(`" . $this->params[0] . "`).");
                     break;
             }
         } else {
@@ -143,11 +169,11 @@ class Init extends PackageArgvParser
      */
     public function getLogo()
     {
-        ConsoleLog::doPrintMessage("", "cyan", "@@@@@   @   @@@@@ @@@@@ @       @   @@@@@ @@@@@ @@@@@", 1);
-        ConsoleLog::doPrintMessage("", "cyan", "@      @ @  @     @     @      @ @    @     @   @    ", 1);
-        ConsoleLog::doPrintMessage("", "cyan", "@     @@@@@ @@@@  @@@@@ @     @@@@@   @     @   @@@@@", 1);
-        ConsoleLog::doPrintMessage("", "cyan", "@     @   @ @     @     @     @   @   @     @   @    ", 1);
-        ConsoleLog::doPrintMessage("", "cyan", "@@@@@ @   @ @     @@@@@ @@@@@ @   @   @     @   @@@@@", 2);
+        ConsoleLog::doPrintMessage("", "cyan", "●●●●●     ●      ●●●●●  ●●●●●         ●         ●     ●●●●●  ●●●●●  ●●●●●", 1);
+        ConsoleLog::doPrintMessage("", "cyan", "●        ● ●     ●      ●             ●        ● ●      ●      ●    ●    ", 1);
+        ConsoleLog::doPrintMessage("", "cyan", "●       ●●●●●    ●●●●   ●●●●●   ●●●   ●       ●●●●●     ●      ●    ●●●●●", 1);
+        ConsoleLog::doPrintMessage("", "cyan", "●       ●   ●    ●      ●             ●       ●   ●     ●      ●    ●    ", 1);
+        ConsoleLog::doPrintMessage("", "cyan", "●●●●●  ●     ●   ●      ●●●●●         ●●●●●  ●     ●    ●      ●    ●●●●●", 2);
     }
 
 
@@ -156,10 +182,9 @@ class Init extends PackageArgvParser
      */
     public function getVersion()
     {
-        ConsoleLog::doPrintMessage("yellow", "black", "Do not run `cafelatte` as root/super user", 2);
-
-        ConsoleLog::doPrintMessage("black", "white", "This file is part of CafeLatte framework and including a package manager functions", 1);
-        ConsoleLog::doPrintMessage("black", "white", "This binary helps you to convert your HTML code into PHP output statements", 2);
+        ConsoleLog::doPrintMessage("yellow", "black", "Do not run `cafelatte` as root/super user.\t\t\t", 2);
+        ConsoleLog::doPrintMessage("black", "white", "This file is part of CafeLatte framework and including a package manager functions.", 1);
+        ConsoleLog::doPrintMessage("black", "white", "This binary helps you to convert your HTML code into PHP output statements.", 2);
 
         $this->getLogo();
 
@@ -178,16 +203,17 @@ class Init extends PackageArgvParser
     public function getUsage()
     {
         ConsoleLog::doPrintMessage("black", "yellow", "Usage:", 1);
-        echo "\e[0m  cafelatte check [options=arguments]" . PHP_EOL;
-        echo "\e[0m  cafelatte setup [options=arguments]" . PHP_EOL;
-        echo "\e[0m  cafelatte remove [options=arguments]" . PHP_EOL;
+//        echo "\e[0m  cafelatte check [options=arguments]" . PHP_EOL;
+//        echo "\e[0m  cafelatte setup [options=arguments]" . PHP_EOL;
+//        echo "\e[0m  cafelatte remove [options=arguments]" . PHP_EOL;
         echo "\e[0m  cafelatte template [init/update/delete] [options=arguments]" . PHP_EOL;
         echo "\e[0m  cafelatte package [clean/create/install/delete/build] [options=arguments]" . PHP_EOL;
         echo "\e[0m  cafelatte database [update] [options=arguments]" . PHP_EOL;
-        echo "\e[0m  cafelatte composer [update] [options=arguments]" . PHP_EOL;
+//        echo "\e[0m  cafelatte composer [update] [options=arguments]" . PHP_EOL;
         echo "\e[0m  cafelatte version" . PHP_EOL;
         echo "\e[0m  ex) \e[33mcafelatte template update --config=cafelatte.json \e[0m" . PHP_EOL . PHP_EOL;
     }
+
 
     /**
      *

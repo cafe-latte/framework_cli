@@ -13,11 +13,12 @@ class PackageArgvParser
     }
 
 
+
     /**
      * @param $argv
-     * @return array|mixed
+     * @return array
      */
-    public function doParser($argv)
+    public function doParser($argv): array
     {
         array_shift($argv);
         $out = array();
@@ -54,17 +55,16 @@ class PackageArgvParser
         }
 
 
-
         if (isset($out['config'])) {
             $jsonInfo = json_decode(file_get_contents($out['config']), true);
             if ($jsonInfo) {
-                return array($argv[0], $argv[1],$jsonInfo);
+                return array($argv[0], $argv[1], $jsonInfo);
             }
         } else {
             if (is_file("cafelatte.json")) {
                 $jsonInfo = json_decode(file_get_contents("cafelatte.json"), true);
                 if ($jsonInfo) {
-                    return array($argv[0],$argv[1], $jsonInfo);
+                    return array($argv[0], $argv[1], $jsonInfo);
                 }
             }
         }

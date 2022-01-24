@@ -25,8 +25,6 @@ class CafeLatte
             "./src/PhpFramework",
             "./src/PhpFramework/Config",
             "./src/PhpFramework/Controllers",
-            "./src/PhpFramework/Controllers/Admin",
-            "./src/PhpFramework/Controllers/Www",
             "./src/PhpFramework/Exceptions",
             "./src/PhpFramework/Helpers",
             "./src/PhpFramework/Layout",
@@ -36,9 +34,7 @@ class CafeLatte
             "./src/PhpFramework/Service",
             "./src/Resources",
             "./src/Resources/Database",
-            "./web",
-            "./web/Admin",
-            "./web/Www",
+            "./web"
         );
     }
 
@@ -47,7 +43,7 @@ class CafeLatte
      */
     public function doPreCheckComposer()
     {
-        ConsoleLog::noticeMessage("Checking Propel........................");
+        ConsoleLog::noticeMessage("Checking Propel..............................................");
         $isInstallComposer = Console::doCommandExec("which composer");
         if ($isInstallComposer) {
             ConsoleLog::doPrintFile("the Composer Installed", "OK", "green", "Checking...");
@@ -65,8 +61,7 @@ class CafeLatte
      */
     public function doPreCheckCafeLatteJson($configFileName)
     {
-        ConsoleLog::noticeMessage("Checking cafelatte.json file...........");
-
+        ConsoleLog::noticeMessage("Checking cafelatte.json file.................................");
         if ($configFileName) {
             if (is_file($configFileName)) {
                 ConsoleLog::doPrintFile(" `{$configFileName}` Existed", "OK", "green", "Checking...");
@@ -92,7 +87,7 @@ class CafeLatte
      */
     public function doPreCheckFolder($jsonData = null)
     {
-        ConsoleLog::noticeMessage("Checking Folder And File In Default....");
+        ConsoleLog::noticeMessage("Checking Folder And File In Default..........................");
 
         foreach ($this->folders as $folder) {
             if (file_exists($folder) != true) {
@@ -162,7 +157,7 @@ class CafeLatte
      */
     public function doPreCheckDatabase($jsonData = null)
     {
-        ConsoleLog::noticeMessage("Checking Database Connection...........");
+        ConsoleLog::noticeMessage("Checking Database Connection.................................");
 
         $dbHost = $jsonData['database']['db_host'];
         $dbName = $jsonData['database']['db_name'];
