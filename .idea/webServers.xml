@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="2d865fca-4459-4367-84e9-e3dc4c916f4e" name="Private_Cli">
+        <fileTransfer rootFolder="/home/labs/cafelatte_cli" accessType="SFTP" host="13.209.145.180" port="22" sshConfigId="87c387b6-9a86-4a7d-9f64-4db592218e20" sshConfig="ubuntu@13.209.145.180:22 key" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
