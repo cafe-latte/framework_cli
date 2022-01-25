@@ -36,6 +36,7 @@ class Init extends PackageArgvParser
      */
     public function doCommand()
     {
+        self::getPhpVersionCheck();
         if ($this->params[0]) {
             switch ($this->params[0]) {
                 case "version":
@@ -190,11 +191,24 @@ class Init extends PackageArgvParser
 
         ConsoleLog::doPrintMessage("", "cyan", "Name    : CafeLatte Binary", 1);
         ConsoleLog::doPrintMessage("", "cyan", "Version", 0);
-        ConsoleLog::doPrintMessage("", "cyan", " : v1.1.3", 1);
+        ConsoleLog::doPrintMessage("", "cyan", " : v1.1.4", 1);
         ConsoleLog::doPrintMessage("", "cyan", "Url    ", 0);
         ConsoleLog::doPrintMessage("", "cyan", " : https://www.cafe-latte.co.kr", 1);
         ConsoleLog::doPrintMessage("", "cyan", "Author ", 0);
         ConsoleLog::doPrintMessage("", "cyan", " : Thorpe Lee", 2);
+    }
+
+    /**
+     *
+     */
+    public function getPhpVersionCheck()
+    {
+        $phpVersion = substr(phpversion(), 0, 3);
+        if ($phpVersion !== '7.1' && $phpVersion !== '7.2' && $phpVersion !== '7.3' && $phpVersion !== '7.4') {
+            ConsoleLog::errorMessage("we do not support on your PHP version ( your version : " . phpversion() . ")");
+            exit;
+        }
+
     }
 
     /**
@@ -231,9 +245,9 @@ class Init extends PackageArgvParser
     {
         ConsoleLog::doPrintMessage("black", "yellow", "First commands:", true);
         echo "\e[32m  template\e[0m\t\t Convert html to php" . PHP_EOL;
-        echo "\e[32m    ├─ init\e[0m\t\t Use template init command" . PHP_EOL;
+//        echo "\e[32m    ├─ init\e[0m\t\t Use template init command" . PHP_EOL;
         echo "\e[32m    ├─ update\e[0m\t\t Use template update command " . PHP_EOL;
-        echo "\e[32m    └─ build\e[0m\t\t Use template build command " . PHP_EOL . PHP_EOL;
+//        echo "\e[32m    └─ build\e[0m\t\t Use template build command " . PHP_EOL . PHP_EOL;
         echo "\e[32m  database\e[0m\t\t Use database command" . PHP_EOL;
         echo "\e[32m    └─update\e[0m\t\t Use database update command " . PHP_EOL . PHP_EOL;
         echo "\e[32m  version\e[0m\t\t Show version info " . PHP_EOL . PHP_EOL;

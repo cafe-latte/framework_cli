@@ -35,7 +35,22 @@ class PackageDatabase
         sleep(1);
 
         ConsoleLog::doPrintMessage("black", "white", "step (3/6) \t: change namespace.", 1);
-        Console::doCommandExec('find ./generated-reversed-database/schema.xml -name "*.*" -exec sed -i "s/defaultPhpNamingMethod=\"underscore\"/defaultPhpNamingMethod=\"underscore\" namespace=\"PhpFramework\\\\\Model\\\\\\' .$dbPascalName . '\"/g" {} \;');
+        $oriFileName = "./generated-reversed-database/schema.xml";
+        $newFileName = "./generated-reversed-database/new.xml";
+        $handle = fopen($oriFileName, "r");
+        if ($handle) {
+            $myFile = fopen($newFileName, "w");
+            while (($line = fgets($handle)) !== false) {
+                $changedStr = "defaultPhpNamingMethod=\"underscore\" namespace=\"PhpFramework\Model\\$dbPascalName\"";
+                $newLine = str_replace("defaultPhpNamingMethod=\"underscore\"", $changedStr, $line);
+                fwrite($myFile, $newLine);
+            }
+
+            fclose($myFile);
+            fclose($handle);
+            unlink($oriFileName);
+            rename($newFileName, $oriFileName);
+        }
         sleep(1);
 
         ConsoleLog::doPrintMessage("black", "white", "step (4/6) \t: model build", 1);

@@ -77,8 +77,8 @@ class TemplateGenerate
     public function doCompile($params)
     {
         if ($params['template']['on_off'] == 'on') {
-            $this->doValidationInput($params['project']['path'] . $params['template']['input']);
-            $this->doValidationOutput($params['project']['path'] . $params['template']['output']);
+            $this->doValidationInput( $params['template']['input']);
+            $this->doValidationOutput( $params['template']['output']);
 
             if ($params['template']['user']) {
                 $user = $params['template']['user'];
@@ -88,7 +88,7 @@ class TemplateGenerate
                 $group = $params['template']['group'];
             }
 
-            $this->doExecute($params['project']['path'] . $params['template']['input'], $params['project']['path'] . $params['template']['output'], $params['project']['path'] . $params['template']['input'], $user, $group);
+            $this->doExecute( $params['template']['input'],  $params['template']['output'],  $params['template']['input'], $user, $group);
         } else {
             ConsoleLog::doPrintMessage("red", "black", "Template is unactivated, Please check setting options.(template->on_off)", 2);
         }
@@ -101,10 +101,11 @@ class TemplateGenerate
      */
     public function doClean($params)
     {
-        $this->doValidationInput($params['project']['path'] . $params['template']['input']);
-        $this->doValidationOutput($params['project']['path'] . $params['template']['output']);
+        echo  $params['template']['input'] . "\n";
+        $this->doValidationInput( $params['template']['input']);
+        $this->doValidationOutput( $params['template']['output']);
 
-        $this->doTemplateClean($params['project']['path'] . $params['template']['output'], $params['project']['path'] . $params['template']['input']);
+        $this->doTemplateClean( $params['template']['output'],  $params['template']['input']);
     }
 
     /**
@@ -225,7 +226,8 @@ class TemplateGenerate
                         $resultMessage = "Error #01 - cannot create compile directory";
                     }
                     exec("chmod -R " . $this->permission . " " . $path);
-                    exec("chown -R " . $this->fileUser . "." . $this->fileGroup . " " . $path);
+                    exec("chown -R " . $this->fileUser . " " . $path);
+                    exec("chgrp -R " . $this->fileGroup . " " . $path);
                 }
             }
         }
@@ -484,7 +486,8 @@ class TemplateGenerate
         }
 
         exec("chmod " . $this->permission . " " . $cplPath);
-        exec("chown -R " . $this->fileUser . "." . $this->fileGroup . " " . $cplPath);
+        exec("chown -R " . $this->fileUser . " " . $cplPath);
+        exec("chgrp -R " . $this->fileGroup . " " . $cplPath);
         return "\e[32mOK";
     }
 
